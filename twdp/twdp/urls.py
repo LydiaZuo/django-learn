@@ -22,9 +22,9 @@ urlpatterns = [
     url(r'^rango/', include('rango.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += url(r'^media/(?P<path>.*)', 'django.views.static')
-'''    urlpatterns += patterns(
+'''if settings.DEBUG:
+    urlpatterns += url(r'^media/(?P<path>.*)/$', 'django.views.static.serve', {'document_root':settings.MEDIA_ROOT})
+    urlpatterns += patterns(
         'django.views.static',
         (r'^media/(?P<path>.*)',
         'serve',
