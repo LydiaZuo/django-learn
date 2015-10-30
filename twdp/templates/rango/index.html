@@ -4,15 +4,23 @@
 
 <html>
 
-    <head>
-        <title>Rango</title>
-    </head>
+	<head>
+		<title>Rango</title>
+	</head>
 
-    <body>
-        <h1>Rango says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong> <br />
-        <img src="{% static "images/lena.png" %}" alt="Picture of lena" />
-        <a href="/rango/about/">About</a> <br />
-    </body>
+	<body>
+		<h1>Rango says... hello world!</h1>
+
+		{% if categories %}
+			<ul>
+				{% for category in categories %}
+				<li><a href='/rango/{{ category.slug }}/'>{{ category.name }}</a></li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<strong>There are no categories presents.</strong>
+		{% endif %}
+		<a href="/rango/about/">About</a> <br />
+	</body>
 
 </html>

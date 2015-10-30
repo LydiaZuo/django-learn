@@ -4,11 +4,18 @@ from rango.models import Category, Page
 
 # Register your models here.
 
+class PageInline(admin.TabularInline):
+	model = Page
+	extra = 2
+
 class CategoryAdmin(admin.ModelAdmin):
 	fieldsets = [
-		(None, {'fields' : ['name', ]}),
+		(None, {'fields' : ['name', 'slug']}),
 		('Detail information', {'fields' : ['views', 'likes']}),
 		]
+	inlines = [PageInline]
+	list_display = ['name', 'slug', 'views', 'likes']
+	list_filter = ['name']
 
 class PageAdmin(admin.ModelAdmin):
 	fieldsets = [
@@ -17,4 +24,4 @@ class PageAdmin(admin.ModelAdmin):
 		]
 
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Page, PageAdmin)
+#admin.site.register(Page, PageAdmin)
