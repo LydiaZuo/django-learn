@@ -4,6 +4,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'twdp.settings')
 import django
 django.setup()
 
+import random
+
 from rango.models import Category, Page
 
 def populate():
@@ -52,7 +54,6 @@ def populate():
 
 def add_page(cat, title, url, views = 0):
 	p = Page.objects.get_or_create(category = cat, title = title, url = url)[0]
-	p.views = views
 	p.save()
 	return p
 
@@ -65,5 +66,13 @@ if __name__ == '__main__':
 	populate()
 #	c = Category.objects.get_or_create(name = 'Python')
 #	print(c)
+#	for c in Category.objects.all():
+#		print(c)
+	for p in Page.objects.all():
+		p.views = p.views + random.randint(1, 10)
+		p.save()
+	
 	for c in Category.objects.all():
-		print(c)
+		c.views = c.views + random.randint(1, 50)
+		c.likes = c.likes + random.randint(1, 25)
+		c.save()
