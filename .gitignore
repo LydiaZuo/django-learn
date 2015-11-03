@@ -3,3 +3,4 @@
 *initial.py
 *.swp
 .gitignore
+twdp/rango/migrations/*
