@@ -76,3 +76,4 @@ if __name__ == '__main__':
 		c.views = c.views + random.randint(1, 50)
 		c.likes = c.likes + random.randint(1, 25)
 		c.save()
+
