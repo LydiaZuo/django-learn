@@ -102,6 +102,7 @@ def add_page(request, category_name_slug):
 
 	return render(request, 'rango/add_page.html', context_dict)
 
+'''
 def register(request):
 
 	registered = False
@@ -134,7 +135,9 @@ def register(request):
 		profile_form = UserProfileForm()
 
 	return render(request, 'rango/register.html', {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+'''
 
+'''
 def user_login(request):
 	if request.method == 'POST':
 		username = request.POST.get('username')
@@ -154,16 +157,20 @@ def user_login(request):
 
 	else:
 		return render(request, 'rango/login.html', {})
-		
+'''
+
+
 @login_required
 def restricted(request):
 	return HttpResponse("Since you're logged in, you can see this text!")
 
+
+'''
 @login_required
 def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect('/rango/')
-
+'''
 
 
 
