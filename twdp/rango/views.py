@@ -5,6 +5,7 @@ from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 
+from datetime import datetime
 def index(request):
 	context_dict = {}
 
@@ -14,7 +15,29 @@ def index(request):
 	page_list = Page.objects.order_by('-views')[:10]
 	context_dict['pages'] = page_list
 
-	return render(request, 'rango/index.html', context_dict)
+	visits = int(request.COOKIES.get('visits', '1'))
+	print(visits)
+
+	reset_last_visit_time = False
+	response = render(request, 'rango/index.html', context_dict)
+
+	if 'last_visit' in request.COOKIES:
+		last_visit = request.COOKIES['last_visit']
+		last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
+
+		if (datetime.now() - last_visit_time).days > 0:
+			visits = visits + 1
+			reset_last_visit_time = True
+	else:
+		reset_last_visit_time = True
+
+		context_dict['visits'] = visits
+		response = render(request, 'rango/index.html', context_dict)
+	
+	if reset_last_visit_time:
+		response.set_cookie('last_visit', datetime.now())
+		response.set_cookie('visits', visits)
+	return response
 
 def about(request):
 	context_dict = {'aboutmessage': "Never mind, here is the about page."}
