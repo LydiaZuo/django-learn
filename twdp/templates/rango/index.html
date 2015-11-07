@@ -5,35 +5,37 @@
 {% block title %}{% endblock %}
 
 {% block body_block %}
+	<div class="page-header">
 		{% if user.is_authenticated %}
 		<h1>Rango says... hello {{ user.username }}!</h1>
 		{% else %}
 		<h1>Rango says... hello world!</h1>
 		{% endif %}
+	</div>
 
-		{% if categories %}
-		<h2>Top categories</h2>
-			<ul>
-				{% for category in categories %}
-				<li><a href='/rango/category/{{ category.slug }}/'>{{ category.name }}</a></li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<strong>There are no categories presents.</strong>
-		{% endif %}
-		<br />
-		
+	{% if categories %}
+	<h2>Top categories</h2>
+		<ul>
+			{% for category in categories %}
+			<li><a href='/rango/category/{{ category.slug }}/'>{{ category.name }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<strong>There are no categories presents.</strong>
+	{% endif %}
+	<br />
+	
 
-		{% if pages %}
-		<h2>Top pages</h2>
-			<ul>
-				{% for page in pages %}
-				<li><a href='{{ page.url }}'>{{ page.title }}</a></li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<strong>There are no pages presents.</strong>
-		{% endif %}
-		<br />
+	{% if pages %}
+	<h2>Top pages</h2>
+		<ul>
+			{% for page in pages %}
+			<li><a href='{{ page.url }}'>{{ page.title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<strong>There are no pages presents.</strong>
+	{% endif %}
+	<br />
 
 {% endblock %}
